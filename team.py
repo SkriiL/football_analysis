@@ -33,6 +33,10 @@ class Team:
             xsl.append([x])
         model = LinearRegression()
         model.fit(xsl, self.ys)
-        self.predicted = model.predict(xsl)
+        predicted = model.predict(xsl)
+        plt.plot(self.xs, self.ys, label=self.name)
+        plt.plot(self.xs, predicted, label="Trend")
+        plt.legend()
+        plt.show()
 
 
