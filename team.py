@@ -37,16 +37,16 @@ class Team:
             xsl.append([x])
         model = LinearRegression()
         model.fit(xsl, self.ys)
-        self.predicted = model.predic(xsl)
+        self.predicted = model.predict(xsl)
 
     def statistic(self):
-        self.calculate_predicted()
         plt.plot(self.xs, self.ys, label=self.name)
         plt.plot(self.xs, self.predicted, label="Trend")
         plt.legend()
         plt.show()
 
     def compare(self, team2):
+        print(self.difference)
         self.calculate_predicted()
         team2.calculate_predicted()
         sum = 0
@@ -54,13 +54,13 @@ class Team:
             sum += result
         d = sum / len(self.difference)
         m = (self.predicted[-1] - self.predicted[0]) / len(self.predicted)
-        result_team1 = int(d * m / 1.2)
+        result_team1 = int(round(d * m + 2 / 5))
         sum = 0
         for result in team2.difference:
             sum += result
         d = sum / len(team2.difference)
         m = (team2.predicted[-1] - team2.predicted[0]) / len(team2.predicted)
-        result_team2 = int(d * m / 21)
+        result_team2 = int(round(d * m + 2 / 2.15))
         print(str(result_team1) + ":" + str(result_team2))
 
 
