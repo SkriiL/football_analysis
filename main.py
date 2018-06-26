@@ -73,6 +73,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.canvas.draw()
 
     def statistic1(self):
+        self.ui.team1_result.hide()
+        self.ui.team2_result.hide()
         self.get_teams()
         self.team1 = Team(self.team1)
         self.team1.make_graph()
@@ -85,6 +87,8 @@ class MainWindow(QtWidgets.QMainWindow):
         self.canvas.draw()
 
     def statistic2(self):
+        self.ui.team1_result.hide()
+        self.ui.team2_result.hide()
         self.get_teams()
         self.team2 = Team(self.team2)
         self.team2.make_graph()
