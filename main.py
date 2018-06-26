@@ -51,12 +51,15 @@ class MainWindow(QtWidgets.QMainWindow):
                 return key
 
     def compare(self):
+        self.ui.team1_result.hide()
+        self.ui.team2_result.hide()
         self.get_teams()
         self.team1 = Team(self.team1)
         self.team2 = Team(self.team2)
         self.team1.make_graph()
         self.team2.make_graph()
         result = self.team1.compare(self.team2)
+        print(result)
         if result != -1:
             self.ui.team1_result.display(result[0])
             self.ui.team2_result.display(result[1])

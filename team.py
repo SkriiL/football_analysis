@@ -42,7 +42,9 @@ class Team:
         c = Quotes(self, team2)
         c_dict = c.fetch()
 
-        if c_dict.get[self.name] is None:
+        try:
+            test = c_dict[self.name]
+        except KeyError:
             return -1
 
         self.calculate_predicted()
