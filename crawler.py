@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
 from bs4 import BeautifulSoup
 import requests
 import string
@@ -23,7 +26,7 @@ class Crawler:
                     self.home.append(True)
                 elif ": " + self.name in text:
                     self.home.append(False)
-            print(self.home)
+            #print(self.home)
 
             numbers = string.digits
 
@@ -34,8 +37,8 @@ class Crawler:
                         self.home_team.append(number)
                     if "zu " + number in text:
                         self.guest_team.append(number)
-            print(self.home_team)
-            print(self.guest_team)
+            #print(self.home_team)
+            #print(self.guest_team)
 
             for i in range(0, len(self.home_team)):
                 if self.home[i]:
@@ -43,5 +46,5 @@ class Crawler:
                 else:
                     self.difference.append(int(self.guest_team[i]) - int(self.home_team[i]))
 
-            print(self.difference)
+            #print(self.difference)
             return self.difference

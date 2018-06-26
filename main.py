@@ -1,3 +1,6 @@
+#!/usr/bin/env python
+# -*- coding: utf8 -*-
+
 import matplotlib.pyplot as plt
 from team import Team
 
@@ -15,7 +18,7 @@ class Main:
 
     def menu(self):
         print("1 | Vergleiche zwei Teams \n"
-              "2 | Trend eines Teams")
+              "2 | Trend eines Teams \n")
         choice = input("Option wählen: ")
         if choice == "1":
             self.get_input_compare()
@@ -33,6 +36,7 @@ class Main:
         plt.plot(self.team2.xs, self.team2.ys, label=self.team2.name)
         plt.legend()
         plt.show()
+        self.team1.compare(self.team2)
 
     def get_input_compare(self):
         for short, name in teams.items():
