@@ -1,4 +1,4 @@
-#v0.1
+#v0.2
 
 import sys
 from qtpy import QtWidgets
@@ -36,6 +36,9 @@ class MainWindow(QtWidgets.QMainWindow):
         self.canvas = FigureCanvas(self.figure)
         self.ui.grid.addWidget(self.canvas, 1, 0, 1, 2)
 
+        self.ui.team1_result.hide()
+        self.ui.team2_result.hide()
+
     def get_teams(self):
         self.team1 = self.ui.team1.currentText()
         self.team2 = self.ui.team2.currentText()
@@ -53,6 +56,11 @@ class MainWindow(QtWidgets.QMainWindow):
         self.team2 = Team(self.team2)
         self.team1.make_graph()
         self.team2.make_graph()
+        result = self.team1.compare(self.team2)
+        self.ui.team1_result.display(result[0])
+        self.ui.team1_result.display(result[1])
+        self.ui.team1_result.show()
+        self.ui.team2_result.show()
         plt.cla()
         ax = self.figure.add_subplot(111)
         ax.plot(self.team1.xs, self.team1.ys, label=self.team1.name, marker="o")
@@ -64,7 +72,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.get_teams()
         self.team1 = Team(self.team1)
         self.team1.make_graph()
-        self.team1.statistic()
+        self.team1.calculate_predicted()
         plt.cla()
         ax = self.figure.add_subplot(111)
         ax.plot(self.team1.xs, self.team1.ys, label=self.team1.name, marker="o")
@@ -76,7 +84,7 @@ class MainWindow(QtWidgets.QMainWindow):
         self.get_teams()
         self.team2 = Team(self.team2)
         self.team2.make_graph()
-        self.team2.statistic()
+        self.team2.calculate_predicted()
         plt.cla()
         ax = self.figure.add_subplot(111)
         ax.plot(self.team2.xs, self.team2.ys, label=self.team2.name, marker="o")
