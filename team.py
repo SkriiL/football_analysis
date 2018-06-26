@@ -1,7 +1,7 @@
 #!/usr/bin/env python
 # -*- coding: utf8 -*-
 
-from crawler import Crawler
+from crawler import Crawler, Quotes
 import matplotlib.pyplot as plt
 from sklearn.linear_model import LinearRegression
 
@@ -46,7 +46,9 @@ class Team:
         plt.show()
 
     def compare(self, team2):
-        print(self.difference)
+        c = Quotes(self, team2)
+        c_dict = c.fetch()
+
         self.calculate_predicted()
         team2.calculate_predicted()
         sum = 0
@@ -54,14 +56,16 @@ class Team:
             sum += result
         d = sum / len(self.difference)
         m = (self.predicted[-1] - self.predicted[0]) / len(self.predicted)
-        result_team1 = int(round(d * m + 2 / 5))
+        q = float(c_dict[self.name])
+        result_team1 = int(round(d * m + 2 / q))
         sum = 0
         for result in team2.difference:
             sum += result
         d = sum / len(team2.difference)
         m = (team2.predicted[-1] - team2.predicted[0]) / len(team2.predicted)
-        result_team2 = int(round(d * m + 2 / 2.15))
-        print(str(result_team1) + ":" + str(result_team2))
+        q = float(c_dict[team2.name])
+        result_team2 = int(round(d * m + 2 / q))
+        print(self.name + " " + str(result_team1) + ":" + str(result_team2) + " " + team2.name)
 
 
 

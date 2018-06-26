@@ -48,3 +48,37 @@ class Crawler:
 
             #print(self.difference)
             return self.difference
+
+
+class Quotes:
+    def __init__(self, team1, team2):
+        self.team1 = team1
+        self.team2 = team2
+        self.website = "https://www.interwetten.com/de/sportwetten/top-leagues?topLinkId=7"
+
+    def fetch(self):
+        request = requests.get(self.website)
+        doc = BeautifulSoup(request.text, "html.parser")
+
+        names = []
+        quotes = []
+
+        table = doc.select_one(".bets")
+        for match in table.select(".even.group3"):
+            if self.team1.name in match.text and self.team2.name in match.text:
+                for result in match("span"):
+                    names.append(result.text)
+                for result in match("strong"):
+                    quotes.append(result.text)
+
+        if "" in names:
+            names.remove("")
+        if "" in quotes:
+            quotes.remove("")
+
+        dict = {}
+        for i in range(len(names)):
+            q_number = quotes[i].replace(",", ".")
+            dict[names[i]] = q_number
+
+        return dict

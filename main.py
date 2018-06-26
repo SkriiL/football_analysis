@@ -3,6 +3,7 @@
 
 import matplotlib.pyplot as plt
 from team import Team
+from crawler import Quotes
 
 teams = {"ARG": "Argentinien", "AUS": "Australien", "BEL": "Belgien", "BRA": "Brasilien", "COL": "Kolumbien",
          "CRC": "Costa Rica", "CRO": "Kroatien", "DEN": "Dänemark", "EGY": "Ägypten", "ENG": "England", "ESP": "Spanien",
@@ -18,14 +19,17 @@ class Main:
 
     def menu(self):
         print("1 | Vergleiche zwei Teams \n"
-              "2 | Trend eines Teams \n")
+              "2 | Trend eines Teams \n"
+              "3 | Test")
         choice = input("Option wählen: ")
         if choice == "1":
             self.get_input_compare()
             self.compare()
-        elif choice:
+        elif choice == "2":
             self.get_input_statistic()
             self.statistic()
+        elif choice == "3":
+            self.test()
 
     def compare(self):
         self.team1 = Team(self.team1)
@@ -53,6 +57,10 @@ class Main:
         for short, name in teams.items():
             print(short + " | " + name)
         self.team1 = input("Kürzel des Teams: ")
+
+    def test(self):
+        c = Quotes(Team("AUS"), Team("PER"))
+        c.fetch()
 
 m = Main()
 while True:
