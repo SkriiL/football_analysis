@@ -79,5 +79,5 @@ class Quotes:
         for i in range(len(names)):
             q_number = quotes[i].replace(",", ".")
             dict[names[i]] = q_number
-
+        print(dict)
         return dict
